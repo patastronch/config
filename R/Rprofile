@@ -1,0 +1,26 @@
+#updatePrompt <- function(...) {
+#    options(menu.graphics=FALSE,
+#            prompt=paste("\001[01;32m\002",
+#                         format(Sys.time(),"%H:%M:%S"),
+#                         "R > \001[00m\002"));
+#    return(invisible(TRUE))
+#}
+
+
+
+# Automatic selection of Lyon 1 and AiRPX repository
+options(showWarnCalls=TRUE, showErrorCalls=TRUE, continue=" ", mc.cores=2, repos=c("http://cran.univ-lyon1.fr", "http://rditairpx/R-packages/"))
+
+wideScreen <- function() {
+    howWide <- as.numeric(system("stty -a | head -n 1 | awk '{print $7}' | sed 's/;//'", intern=T))
+    if(length(howWide)>0) options(width=howWide)
+    else options(width=80)
+}
+
+updatePrompt <- function(...) {
+    options(menu.graphics=FALSE, prompt=paste(Sys.time(),"> "))
+    wideScreen() 
+    return(invisible(TRUE))
+}
+updatePrompt()
+invisible(addTaskCallback(updatePrompt))

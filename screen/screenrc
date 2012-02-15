@@ -1,0 +1,7 @@
+startup_message off
+
+vbell on
+
+defscrollback 5000
+hardstatus alwayslastline "%{= kW} %-w%{= Wk}%n %t%{-}%+w %=%c"
+escape "^ ^!"  

@@ -1,0 +1,117 @@
+let $VIMFILES=expand("$HOME/.vim")
+
+syntax on default              " syntax hilighting
+filetype indent on             " enable filetype detection (pour R)
+
+set autoindent
+set backspace=2                " suppr = x in normal mode 
+set encoding=utf8
+set expandtab                  " replace tab by the appropriate nb of spaces
+set hidden                     " allows to change buffer without save
+set history=50
+set hlsearch                   " highlight search result
+set ignorecase                 " case insensitive search
+set incsearch                  " show the next search pattern as you type
+set nocompatible               " do not behave like vi
+set nolist                     " do not show void characters
+set ruler                      " show the line,column number
+set scrolloff=3                " minimal number of lines around the cursor
+set shiftwidth=4               " number of spaces for indentation
+set shortmess+=I               " no intro message
+set showcmd                    " info in status line
+set showmatch                  " briefly jump to the matching (,),[,],{,}
+set smartcase                  " override ignorecase if uppercase present
+set smartindent
+set smarttab                   " tab in front of a blank line is rel to sw
+set softtabstop=4              " number of spaces while editing
+set statusline=%2*[%02n]%*\ %f\ %3*%(%m%)%4*%(%r%)%*%=%b\ 0x%B\ \ <%l,%c%V>\ %P
+set tabstop=4                  " what is a tab?
+set tags=tags;/                " upward search, up to the root directory
+set whichwrap=<,>,[,],h,l      " end line links with first next line
+set wildmode=list:full         " show list and try to complete
+
+" Assign keys to unable/disable the spellchecker
+map ,ca <ESC>:setlocal spell spelllang=en_us<RETURN>
+map ,cf <ESC>:setlocal spell spelllang=fr<RETURN>
+map ,cc <ESC>:setlocal nospell<RETURN>
+
+nmap ,h :nohl<CR>
+nmap ,s :source $MYVIMRC<CR> 
+nmap ,v :edit $MYVIMRC<CR>
+nmap <S-Tab> :bp<CR>
+nmap <C-z> u
+nmap <C-a> gg<S-v>G
+
+" split
+nmap <C-w>v :vsplit<CR>
+nmap <C-w>h :split<CR>
+
+" tab
+nmap <C-t>c :tabnew<CR>
+nmap <C-t>n :tabnext<CR>
+nmap <C-t><Right> :tabnext<CR>
+nmap <C-t><PageUp> :tabnext<CR>
+nmap <C-t>l :tabnext<CR>
+nmap <C-t>p :tabprevious<CR>
+nmap <C-t><Left> :tabprevious<CR>
+nmap <C-t><PageDown> :tabprevious<CR>
+nmap <C-t>h :tabprevious<CR>
+nmap <C-t>d :tabclose<CR> 
+
+
+imap <C-a> <ESC>^i
+imap <C-e> <ESC>$i
+
+vnoremap <BS> d
+vnoremap <Down> j
+vnoremap <End> $
+vnoremap <Home> ^
+vnoremap <Left> h
+vnoremap <PageDown> 30j
+vnoremap <PageUp> 30k
+vnoremap <Right> l
+vnoremap <Up> k
+
+vmap <C-a> <ESC>gg<S-v>G
+
+let Tlist_Ctags_Cmd="ctags"
+
+let g:EnhCommentifyFirstLineMode = "yes"
+let g:EnhCommentifyPretty = "yes"
+let g:EnhCommentifyTraditionalMode = "no"
+let g:EnhCommentifyUseSyntax = "yes"
+let g:mapleader = "`"
+let g:miniBufExplorerMoreThanOne = 3
+
+let html_use_css = 1
+let java_highlight_java_lang_ids = 1
+let python_highlight_all = 1
+let vimrplugin_conqueplugin = 0
+
+if $SHELL =~ '/\(sh\|csh\|bash\|tcsh\|zsh\)$'
+    let s:path = system("echo /sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/Users/xo/.bin:/usr/X11R6/bin:$PATH")
+    let $PATH =s:path
+endif
+
+
+
+" Enable CursorLine
+" set cursorline
+
+" Default Colors for CursorLine
+" highlight  CursorLine ctermbg=None ctermfg=None
+highlight Normal ctermbg=None ctermfg=None
+highlight CursorLine ctermbg=none ctermfg=None cterm=None
+set cursorline
+
+" Change Color when entering Insert Mode
+autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None cterm=None
+autocmd InsertLeave * highlight Normal ctermbg=None ctermfg=None
+
+" Revert Color to default when leaving Insert Mode
+autocmd InsertEnter * highlight Normal ctermbg=LightGrey ctermfg=None 
+autocmd InsertEnter * highlight CursorLine ctermbg=9 ctermfg=None
+
+
+
+
