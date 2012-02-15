@@ -12,6 +12,7 @@ set history=50
 set hlsearch                   " highlight search result
 set ignorecase                 " case insensitive search
 set incsearch                  " show the next search pattern as you type
+set laststatus=2               " always show the statusbar
 set nocompatible               " do not behave like vi
 set nolist                     " do not show void characters
 set ruler                      " show the line,column number
