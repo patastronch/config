@@ -19,3 +19,7 @@ compdef _gnu_generic R
 autoload -U zfinit
 zfinit
 
+if [[ ! ( -n $WINDOW ) ]]
+then
+    screen
+fi
