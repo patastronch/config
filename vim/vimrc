@@ -1,53 +1,95 @@
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" vim +PluginInstall +qall
+
 let $VIMFILES=expand("$HOME/.vim")
+let $GIT_ASKPASS='true'
 
-syntax on default              " syntax hilighting
-filetype indent on             " enable filetype detection (pour R)
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" plugin on GitHub repo
+Plugin 'scrooloose/nerdtree' " left panel with file explorer: <C-o>
+Plugin 'morhetz/gruvbox' "color theme
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+
+filetype plugin indent on    " required
+
+syntax on default " syntax hilighting
+
+set autochdir       " use current working directory of a file as base path
 set autoindent
-set backspace=2                " suppr = x in normal mode 
+set backspace=2 " suppr = x in normal mode
 set encoding=utf8
-set expandtab                  " replace tab by the appropriate nb of spaces
-set hidden                     " allows to change buffer without save
+set expandtab " replace tab by the appropriate nb of spaces
+set hidden " allows to change buffer without save
 set history=50
-set hlsearch                   " highlight search result
-set ignorecase                 " case insensitive search
-set incsearch                  " show the next search pattern as you type
-set laststatus=2               " always show the statusbar
-set nocompatible               " do not behave like vi
-set nolist                     " do not show void characters
-set ruler                      " show the line,column number
-set scrolloff=3                " minimal number of lines around the cursor
-set shiftwidth=4               " number of spaces for indentation
-set shortmess+=I               " no intro message
-set showcmd                    " info in status line
-set showmatch                  " briefly jump to the matching (,),[,],{,}
-set smartcase                  " override ignorecase if uppercase present
+set hlsearch " highlight search result
+set ignorecase " case insensitive search
+set incsearch " show the next search pattern as you type
+set laststatus=2 " always show the statusbar
+set nolist " do not show void characters
+" set nu              " show line numbers
+set ruler " show the line,column number
+set scrolloff=3 " minimal number of lines around the cursor
+set shiftwidth=4 " number of spaces for indentation
+set shortmess+=I " no intro message
+set showcmd " info in status line
+set showmatch " briefly jump to the matching (,),[,],{,}
+set showmode        " show the current mode on the last line
+set smartcase " override ignorecase if uppercase present
 set smartindent
-set smarttab                   " tab in front of a blank line is rel to sw
-set softtabstop=4              " number of spaces while editing
+set smarttab " tab in front of a blank line is rel to sw
+set softtabstop=4 " number of spaces while editing
 set statusline=%2*[%02n]%*\ %f\ %3*%(%m%)%4*%(%r%)%*%=%b\ 0x%B\ \ <%l,%c%V>\ %P
-set tabstop=4                  " what is a tab?
-set tags=tags;/                " upward search, up to the root directory
-set whichwrap=<,>,[,],h,l      " end line links with first next line
-set wildmode=list:full         " show list and try to complete
+set tabstop=4 " what is a tab?
+set tags=tags;/ " upward search, up to the root directory
+set whichwrap=<,>,[,],h,l " end line links with first next line
+
+" Mouse
+set mouse=a
+
+" set wildmode=list:full " show list and try to complete
+set wildmenu        " command-line completion shows a list of matches
+set wildmode=longest,list:longest,full " Bash-vim completion behavior
 
 " Assign keys to unable/disable the spellchecker
-map ,ca <ESC>:setlocal spell spelllang=en_us<RETURN>
-map ,cf <ESC>:setlocal spell spelllang=fr<RETURN>
-map ,cc <ESC>:setlocal nospell<RETURN>
+let mapleader = "," " leader key is comma
+let maplocalleader = "\<space>"
 
-nmap ,h :nohl<CR>
-nmap ,s :source $MYVIMRC<CR> 
-nmap ,v :edit $MYVIMRC<CR>
+nnoremap <leader>ca <ESC>:setlocal spell spelllang=en_us<RETURN>
+nnoremap <leader>cf <ESC>:setlocal spell spelllang=fr<RETURN>
+nnoremap <leader>cc <ESC>:setlocal nospell<RETURN>
+
+nnoremap <leader>h :nohl<CR>
+nnoremap <leader>s :source $MYVIMRC<CR>
+nnoremap <leader>v :edit $MYVIMRC<CR>
+
+" When jumping to a given line, center the screen
+nnoremap G Gzz
+
+" Navigate into buffers
 nmap <S-Tab> :bp<CR>
-nmap <C-z> u
+
+" Select all
 nmap <C-a> gg<S-v>G
 
-" split
+" Split
 nmap <C-w>v :vsplit<CR>
+nmap <C-w>e :vsplit<CR>
 nmap <C-w>h :split<CR>
+nmap <C-w>o :split<CR>
 
-" tab
+" Tabs
 nmap <C-t>c :tabnew<CR>
 nmap <C-t>n :tabnext<CR>
 nmap <C-t><Right> :tabnext<CR>
@@ -57,12 +99,11 @@ nmap <C-t>p :tabprevious<CR>
 nmap <C-t><Left> :tabprevious<CR>
 nmap <C-t><PageDown> :tabprevious<CR>
 nmap <C-t>h :tabprevious<CR>
-nmap <C-t>d :tabclose<CR> 
-
-
+nmap <C-t>d :tabclose<CR>
 imap <C-a> <ESC>^i
 imap <C-e> <ESC>$i
 
+" Navigation
 vnoremap <BS> d
 vnoremap <Down> j
 vnoremap <End> $
@@ -72,47 +113,69 @@ vnoremap <PageDown> 30j
 vnoremap <PageUp> 30k
 vnoremap <Right> l
 vnoremap <Up> k
-
 vmap <C-a> <ESC>gg<S-v>G
 
+" ??
 let Tlist_Ctags_Cmd="ctags"
-
 let g:EnhCommentifyFirstLineMode = "yes"
 let g:EnhCommentifyPretty = "yes"
 let g:EnhCommentifyTraditionalMode = "no"
 let g:EnhCommentifyUseSyntax = "yes"
 let g:mapleader = "`"
 let g:miniBufExplorerMoreThanOne = 3
-
 let html_use_css = 1
 let java_highlight_java_lang_ids = 1
 let python_highlight_all = 1
 let vimrplugin_conqueplugin = 0
-
 if $SHELL =~ '/\(sh\|csh\|bash\|tcsh\|zsh\)$'
-    let s:path = system("echo /sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/Users/xo/.bin:/usr/X11R6/bin:$PATH")
-    let $PATH =s:path
+  let s:path = system("echo /sw/bin:/sw/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/local/bin:/usr/local/bin:/Users/xo/.bin:/usr/X11R6/bin:$PATH")
+  let $PATH =s:path
 endif
 
 
+" color gruvbox
+" colorscheme gruvbox
+" set background=dark
+" set cursorline
 
 " Enable CursorLine
 " set cursorline
-
 " Default Colors for CursorLine
-" highlight  CursorLine ctermbg=None ctermfg=None
-highlight Normal ctermbg=None ctermfg=None
-highlight CursorLine ctermbg=none ctermfg=None cterm=None
+" highlight CursorLine ctermbg=None ctermfg=None
 set cursorline
-
+highlight Normal ctermbg=15 ctermfg=None
+highlight CursorLine ctermbg=7 ctermfg=None cterm=None
 " Change Color when entering Insert Mode
-autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None cterm=None
-autocmd InsertLeave * highlight Normal ctermbg=None ctermfg=None
-
+autocmd InsertEnter * highlight Normal ctermbg=7 ctermfg=None
+autocmd InsertEnter * highlight CursorLine ctermbg=15 ctermfg=None
 " Revert Color to default when leaving Insert Mode
-autocmd InsertEnter * highlight Normal ctermbg=LightGrey ctermfg=None 
-autocmd InsertEnter * highlight CursorLine ctermbg=9 ctermfg=None
+autocmd InsertLeave * highlight Normal ctermbg=15 ctermfg=None
+autocmd InsertLeave * highlight CursorLine ctermbg=7 ctermfg=None cterm=None
 
 
+" autocompletion with <TAB> instead of <C-n>, depending on the context
+function! Smart_TabComplete()
+  let line = getline('.')                         " curline
+  let substr = strpart(line, -1, col('.')+1)      " from start to cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 
+" grep in git
+nnoremap <C-f> :!git grep 
+
+" side pane of files
+nnoremap <C-o> :NERDTreeToggle<CR>
