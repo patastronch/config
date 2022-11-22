@@ -1,5 +1,9 @@
+" if -clipboard in `vim --version | grep 'clipboard'`
+" sudo apt-get install vim-gtk3 -y
+" 
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " vim +PluginInstall +qall
+" pip install 'black[d]'
 
 let $VIMFILES=expand("$HOME/.vim")
 let $GIT_ASKPASS='true'
@@ -16,11 +20,14 @@ Plugin 'VundleVim/Vundle.vim'
 
 " plugin on GitHub repo
 Plugin 'scrooloose/nerdtree' " left panel with file explorer: <C-o>
+" Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'vim-airline/vim-airline' " status bar and true tabs
 Plugin 'morhetz/gruvbox' "color theme
+Plugin 'python-mode/python-mode' " Python mode
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-
 
 filetype plugin indent on    " required
 
@@ -29,6 +36,7 @@ syntax on default " syntax hilighting
 set autochdir       " use current working directory of a file as base path
 set autoindent
 set backspace=2 " suppr = x in normal mode
+set colorcolumn=110
 set encoding=utf8
 set expandtab " replace tab by the appropriate nb of spaces
 set hidden " allows to change buffer without save
@@ -38,7 +46,7 @@ set ignorecase " case insensitive search
 set incsearch " show the next search pattern as you type
 set laststatus=2 " always show the statusbar
 set nolist " do not show void characters
-" set nu              " show line numbers
+set nu              " show line numbers
 set ruler " show the line,column number
 set scrolloff=3 " minimal number of lines around the cursor
 set shiftwidth=4 " number of spaces for indentation
@@ -133,24 +141,24 @@ if $SHELL =~ '/\(sh\|csh\|bash\|tcsh\|zsh\)$'
 endif
 
 
-" color gruvbox
-" colorscheme gruvbox
-" set background=dark
-" set cursorline
-
-" Enable CursorLine
-" set cursorline
-" Default Colors for CursorLine
-" highlight CursorLine ctermbg=None ctermfg=None
+color gruvbox
+colorscheme gruvbox
+set background=dark
 set cursorline
-highlight Normal ctermbg=15 ctermfg=None
-highlight CursorLine ctermbg=7 ctermfg=None cterm=None
-" Change Color when entering Insert Mode
-autocmd InsertEnter * highlight Normal ctermbg=7 ctermfg=None
-autocmd InsertEnter * highlight CursorLine ctermbg=15 ctermfg=None
-" Revert Color to default when leaving Insert Mode
-autocmd InsertLeave * highlight Normal ctermbg=15 ctermfg=None
-autocmd InsertLeave * highlight CursorLine ctermbg=7 ctermfg=None cterm=None
+
+" " Enable CursorLine
+" " set cursorline
+" " Default Colors for CursorLine
+" " highlight CursorLine ctermbg=None ctermfg=None
+" set cursorline
+" highlight Normal ctermbg=15 ctermfg=None
+" highlight CursorLine ctermbg=7 ctermfg=None cterm=None
+" " Change Color when entering Insert Mode
+" autocmd InsertEnter * highlight Normal ctermbg=7 ctermfg=None
+" autocmd InsertEnter * highlight CursorLine ctermbg=15 ctermfg=None
+" " Revert Color to default when leaving Insert Mode
+" autocmd InsertLeave * highlight Normal ctermbg=15 ctermfg=None
+" autocmd InsertLeave * highlight CursorLine ctermbg=7 ctermfg=None cterm=None
 
 
 " autocompletion with <TAB> instead of <C-n>, depending on the context
@@ -177,5 +185,14 @@ inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 " grep in git
 nnoremap <C-f> :!git grep 
 
-" side pane of files
+" File tree
+" let NERDTreeMapOpenInTab='<ENTER>'
 nnoremap <C-o> :NERDTreeToggle<CR>
+" nnoremap <C-o> :NERDTreeTabsToggle<CR>
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" pymode
+let g:pymode_options_max_line_length=110
