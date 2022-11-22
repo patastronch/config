@@ -1,0 +1,20 @@
+### Installation
+sudo apt install zsh
+chsh -s /bin/zsh
+
+### Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+### PowerLevel10K
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
+### autosuggestion and syntax highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+### Configuration
+1) open ~/.zshrc
+2) search ZSH_THEME and replace with ZSH_THEME="powerlevel10k/powerlevel10k"
+3) add POWERLEVEL9K_MODE="nerdfont-complete"
+4) search plugins=(git) and replace with plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+5) restart zsh and get your preferences
